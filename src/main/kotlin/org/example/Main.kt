@@ -22,7 +22,7 @@ fun main() {
         GPULlama3ChatModel
             .builder()
             .modelPath(modelPath)
-            .onGPU(false) // if false, runs on CPU though a lightweight implementation of llama3.java
+            .onGPU(true) // if false, runs on CPU though a lightweight implementation of llama3.java
             .build()
     val response = model.chat(request)
     println("\n" + response.aiMessage().text())
