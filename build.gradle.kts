@@ -4,11 +4,13 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     kotlin("jvm") version "2.2.20"
+    java
     id("com.gradleup.shadow") version "9.1.0"
     id("org.jetbrains.dokka") version "2.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.8"
     id("org.jlleitschuh.gradle.ktlint") version "13.1.0"
     id("com.github.jk1.dependency-license-report") version "2.9"
+    id("com.diffplug.spotless") version "8.0.0"
     application
 }
 
@@ -16,6 +18,9 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    maven {
+        url = uri("https://raw.githubusercontent.com/beehive-lab/tornado/maven-tornadovm")
+    }
     mavenCentral()
 }
 
@@ -23,6 +28,8 @@ dependencies {
     implementation("dev.langchain4j:langchain4j:1.7.1")
     implementation("dev.langchain4j:langchain4j-gpu-llama3:1.7.1-beta14")
     implementation("dev.langchain4j:langchain4j-open-ai:1.7.1")
+    implementation("tornado:tornado-matrices:1.1.1")
+    implementation("tornado:tornado-api:1.1.1")
     testImplementation(kotlin("test"))
 }
 
@@ -34,6 +41,21 @@ tasks {
     compileTestKotlin {
         compilerOptions.jvmTarget = JvmTarget.JVM_21
     }
+
+    compileJava {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+        options.compilerArgs.add("--enable-preview")
+    }
+
+    compileTestJava {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+        options.compilerArgs.add("--enable-preview")
+    }
+
     test {
         useJUnitPlatform()
     }
@@ -96,5 +118,16 @@ dokka.dokkaSourceSets {
         jdkVersion.set(21)
         enableJdkDocumentationLink.set(false)
         enableKotlinStdLibDocumentationLink.set(false)
+    }
+}
+
+spotless {
+    java {
+        target("src/*/java/**/*.java")
+        // Use the default importOrder configuration
+        importOrder()
+        removeUnusedImports()
+        googleJavaFormat("1.28.0")
+        formatAnnotations()
     }
 }
