@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
     implementation("dev.langchain4j:langchain4j:1.7.1")
-    implementation("dev.langchain4j:langchain4j-gpu-llama3:1.7.1-beta14")
+    implementation("dev.langchain4j:langchain4j-gpu-llama3:1.8.0-beta15")
     implementation("dev.langchain4j:langchain4j-open-ai:1.7.1")
     implementation("tornado:tornado-matrices:1.1.1")
     implementation("tornado:tornado-api:1.1.1")
