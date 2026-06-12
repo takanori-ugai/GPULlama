@@ -25,9 +25,9 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.langchain4j:langchain4j:1.15.1")
+    implementation("dev.langchain4j:langchain4j:1.16.2")
     implementation("dev.langchain4j:langchain4j-gpu-llama3:1.16.1-beta26")
-    implementation("dev.langchain4j:langchain4j-open-ai:1.15.1")
+    implementation("dev.langchain4j:langchain4j-open-ai:1.16.2")
     implementation("tornado:tornado-matrices:1.1.1")
     implementation("tornado:tornado-api:1.1.1")
     testImplementation(kotlin("test"))
